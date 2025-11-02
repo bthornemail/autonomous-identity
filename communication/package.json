@@ -1,0 +1,59 @@
+{
+  "name": "@h2gnn/ai-persistence-communication",
+  "version": "1.0.0",
+  "description": "AI Persistence Communication Protocol with MCP Integration",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "lint": "eslint src/**/*.ts",
+    "lint:fix": "eslint src/**/*.ts --fix",
+    "type-check": "tsc --noEmit",
+    "clean": "rm -rf dist"
+  },
+  "keywords": [
+    "ai",
+    "communication",
+    "mcp",
+    "protocol",
+    "collaboration"
+  ],
+  "author": "H²GNN Team",
+  "license": "MIT",
+  "dependencies": {
+    "@h2gnn/ai-persistence-core": "workspace:*",
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "ws": "^8.18.0",
+    "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.14",
+    "@types/uuid": "^9.0.0",
+    "@types/ws": "^8.5.0",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.3.0",
+    "tsup": "^8.4.0",
+    "typescript": "^5.9.3"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "package.json"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

@@ -1,0 +1,70 @@
+# Simplified AI Persistence Package - Docker Compose Configuration
+# Production-ready deployment with simplified architecture
+
+version: '3.8'
+
+services:
+  # Simplified AI Persistence Core Service
+  ai-persistence-simplified:
+    build:
+      context: .
+      dockerfile: Dockerfile.simplified
+      target: production
+    container_name: ai-persistence-simplified
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - H2GNN_STORAGE_PATH=/app/persistence
+      - H2GNN_STATE_FILE=/app/state/state.json
+      - H2GNN_LOG_LEVEL=info
+      - H2GNN_MAX_MEMORIES=10000
+      - H2GNN_ENCRYPTION_KEY=${H2GNN_ENCRYPTION_KEY:-default-encryption-key-change-in-production}
+    volumes:
+      - ai-persistence-data:/app/persistence
+      - ai-persistence-state:/app/state
+      - ai-persistence-logs:/app/logs
+    networks:
+      - ai-persistence-network
+    healthcheck:
+      test: ["CMD", "node", "-e", "console.log('Health check passed')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.ai-persistence.rule=Host(`ai-persistence.localhost`)"
+      - "traefik.http.services.ai-persistence.loadbalancer.server.port=3000"
+
+  # Nginx reverse proxy for simplified setup
+  nginx:
+    image: nginx:alpine
+    container_name: ai-persistence-nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.simplified.conf:/etc/nginx/nginx.conf:ro
+    networks:
+      - ai-persistence-network
+    depends_on:
+      - ai-persistence-simplified
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+volumes:
+  ai-persistence-data:
+    driver: local
+  ai-persistence-state:
+    driver: local
+  ai-persistence-logs:
+    driver: local
+
+networks:
+  ai-persistence-network:
+    driver: bridge

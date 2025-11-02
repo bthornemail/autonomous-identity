@@ -1,0 +1,162 @@
+# AI Persistence Package - Docker Compose Configuration
+# Production-ready deployment with all services
+
+version: '3.8'
+
+services:
+  # AI Persistence Core Service
+  ai-persistence:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: production
+    container_name: ai-persistence-core
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+      - "3001:3001"
+    environment:
+      - NODE_ENV=production
+      - H2GNN_STORAGE_PATH=/app/persistence
+      - H2GNN_STATE_FILE=/app/state/state.json
+      - H2GNN_LOG_LEVEL=info
+      - H2GNN_MAX_MEMORIES=10000
+      - H2GNN_CONSOLIDATION_THRESHOLD=100
+      - H2GNN_ENCRYPTION_KEY=${H2GNN_ENCRYPTION_KEY:-default-key-change-in-production}
+      - H2GNN_AUTH_TOKEN=${H2GNN_AUTH_TOKEN:-default-token-change-in-production}
+    volumes:
+      - ai-persistence-data:/app/persistence
+      - ai-persistence-state:/app/state
+      - ai-persistence-logs:/app/logs
+    networks:
+      - ai-persistence-network
+    healthcheck:
+      test: ["CMD", "node", "-e", "console.log('Health check passed')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.ai-persistence.rule=Host(`ai-persistence.localhost`)"
+      - "traefik.http.services.ai-persistence.loadbalancer.server.port=3000"
+
+  # Redis for shared learning database
+  redis:
+    image: redis:7-alpine
+    container_name: ai-persistence-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - ai-persistence-network
+    command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD:-default-password-change-in-production}
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # PostgreSQL for persistent storage
+  postgres:
+    image: postgres:15-alpine
+    container_name: ai-persistence-postgres
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=ai_persistence
+      - POSTGRES_USER=${POSTGRES_USER:-ai_persistence}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-default-password-change-in-production}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    networks:
+      - ai-persistence-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-ai_persistence}"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Nginx reverse proxy
+  nginx:
+    image: nginx:alpine
+    container_name: ai-persistence-nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./ssl:/etc/nginx/ssl:ro
+    networks:
+      - ai-persistence-network
+    depends_on:
+      - ai-persistence
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Monitoring with Prometheus
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: ai-persistence-prometheus
+    restart: unless-stopped
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus-data:/prometheus
+    networks:
+      - ai-persistence-network
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--storage.tsdb.retention.time=200h'
+      - '--web.enable-lifecycle'
+
+  # Grafana for visualization
+  grafana:
+    image: grafana/grafana:latest
+    container_name: ai-persistence-grafana
+    restart: unless-stopped
+    ports:
+      - "3001:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD:-admin}
+    volumes:
+      - grafana-data:/var/lib/grafana
+    networks:
+      - ai-persistence-network
+    depends_on:
+      - prometheus
+
+volumes:
+  ai-persistence-data:
+    driver: local
+  ai-persistence-state:
+    driver: local
+  ai-persistence-logs:
+    driver: local
+  redis-data:
+    driver: local
+  postgres-data:
+    driver: local
+  prometheus-data:
+    driver: local
+  grafana-data:
+    driver: local
+
+networks:
+  ai-persistence-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16

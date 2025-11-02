@@ -1,0 +1,79 @@
+{
+  "name": "ai-persistence-package",
+  "version": "1.0.0",
+  "description": "AI Persistence and Identity Package - Universal AI persistence system",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./server": {
+      "import": "./dist/server.js",
+      "types": "./dist/server.d.ts"
+    }
+  },
+  "files": [
+    "dist/**/*",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "npm run clean && npm run build:core && npm run build:server && npm run build:production",
+    "build:core": "tsc --project tsconfig.json",
+    "build:server": "tsc server.ts --outDir dist --target ES2020 --module ESNext --moduleResolution node --allowSyntheticDefaultImports --esModuleInterop",
+    "build:production": "npm run build:core-only",
+    "build:core-only": "./build-core-only.sh",
+    "build:simplified": "./build-simplified.sh",
+    "build:full": "./build-production.sh",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "lint": "eslint . --ext .ts,.js",
+    "lint:fix": "eslint . --ext .ts,.js --fix",
+    "type-check": "tsc --noEmit",
+    "clean": "rm -rf dist",
+    "start": "node dist/server.js",
+    "start:dev": "node --watch dist/server.js",
+    "dev": "npm run build && npm run start:dev",
+    "deploy:production": "./deploy-production.sh",
+    "deploy:simplified": "./deploy-simplified.sh"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.12",
+    "@types/node": "^24.6.2",
+    "@types/uuid": "^11.0.0",
+    "eslint": "^9.37.0",
+    "husky": "^9.1.7",
+    "jest": "^30.2.0",
+    "lint-staged": "^16.2.3",
+    "prettier": "^3.6.2",
+    "tsup": "^8.5.0",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "uuid": "^13.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/h2gnn/ai-persistence-package.git"
+  },
+  "keywords": [
+    "ai",
+    "persistence",
+    "identity",
+    "autonomous",
+    "h2gnn",
+    "hyperbolic",
+    "geometry",
+    "neural-networks"
+  ]
+}
