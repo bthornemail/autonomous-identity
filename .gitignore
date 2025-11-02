@@ -1,26 +1,3 @@
-# Root ignore for monorepo and generated artifacts
-universal-life-protocol/packages/universal-communication-protocol/.git
-universal-life-protocol/packages/universal-context-protocol/.git
-universal-life-protocol/packages/universal-life-broker/.git
-universal-life-protocol/packages/universal-life-schema/.git
-universal-life-protocol/packages/universal-life-vault/.git
-universal-life-protocol/packages/vector-clock-state-engine/.git
-universal-life-protocol/packages/universal-binary-transformer/.git
-universal-life-protocol/packages/.git
-universal-life-protocol/packages/**/.git
-universal-life-protocol/packages/**/**/.git
-universal-life-protocol/packages/**/**/**/.git
-universal-communication-protocol/.git
-universal-context-protocol/.git
-universal-life-broker/.git
-universal-life-schema/.git
-universal-life-vault/.git
-vector-clock-state-engine/.git
-universal-binary-transformer/.git
-plugins/hot-reload
-hot-reload/
-apps/
-
 # Node
 node_modules/
 npm-debug.log*
