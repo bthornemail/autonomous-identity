@@ -1,0 +1,404 @@
+{
+  "nodes": [
+    {
+      "id": "start",
+      "type": "text",
+      "x": 100,
+      "y": 100,
+      "width": 200,
+      "height": 80,
+      "color": "1",
+      "text": "# 🚀 System Start\n\nInitialize AI Persistence System\n\n```typescript\nconst persistence = AIPersistenceCore.create(config);\nawait persistence.initialize();\n```"
+    },
+    {
+      "id": "components",
+      "type": "text",
+      "x": 400,
+      "y": 100,
+      "width": 250,
+      "height": 180,
+      "color": "2",
+      "text": "# 🏗️ Core Components\n\n- **AIPersistenceCore**\n  Main orchestrator\n\n- **IdentityManager**\n  Identity management\n\n- **MemorySystem**\n  Memory operations\n\n- **SecurityFramework**\n  Encryption & auth"
+    },
+    {
+      "id": "identity-create",
+      "type": "text",
+      "x": 100,
+      "y": 250,
+      "width": 200,
+      "height": 120,
+      "color": "3",
+      "text": "# 👤 Create Identity\n\n```typescript\nconst identity = await persistence.createIdentity({\n  name: 'My AI',\n  type: 'ai',\n  capabilities: ['reasoning'],\n  preferences: {}\n});\n```\n\n- Generate fingerprint\n- Create hyperbolic position\n- Generate embedding"
+    },
+    {
+      "id": "memory-store",
+      "type": "text",
+      "x": 100,
+      "y": 420,
+      "width": 200,
+      "height": 140,
+      "color": "4",
+      "text": "# 💾 Store Memory\n\n```typescript\nawait persistence.storeMemory({\n  type: 'episodic',\n  content: 'User interaction',\n  metadata: {\n    source: 'user',\n    quality: 0.9,\n    tags: ['important']\n  }\n});\n```\n\nMemory Types:\n- Episodic\n- Semantic\n- Procedural"
+    },
+    {
+      "id": "memory-retrieve",
+      "type": "text",
+      "x": 100,
+      "y": 610,
+      "width": 200,
+      "height": 100,
+      "color": "4",
+      "text": "# 🔍 Retrieve Memory\n\n```typescript\nconst memories = await persistence.retrieveMemory({\n  type: 'episodic',\n  content: 'interaction',\n  limit: 10\n});\n```\n\nHyperbolic search for similarity"
+    },
+    {
+      "id": "learning",
+      "type": "text",
+      "x": 100,
+      "y": 760,
+      "width": 200,
+      "height": 120,
+      "color": "5",
+      "text": "# 🧠 Learn Concept\n\n```typescript\nawait persistence.learnConcept({\n  concept: 'hyperbolic geometry',\n  data: {...},\n  context: {...},\n  performance: 0.9\n});\n```\n\nTrack learning progress"
+    },
+    {
+      "id": "checkpoint",
+      "type": "text",
+      "x": 100,
+      "y": 930,
+      "width": 200,
+      "height": 100,
+      "color": "6",
+      "text": "# 📌 Create Checkpoint\n\n```typescript\nawait persistence.createCheckpoint({\n  name: 'milestone',\n  description: '...',\n  timestamp: new Date()\n});\n```"
+    },
+    {
+      "id": "state-save",
+      "type": "text",
+      "x": 100,
+      "y": 1080,
+      "width": 200,
+      "height": 100,
+      "color": "6",
+      "text": "# 💾 Save State\n\n```typescript\nawait persistence.saveState();\n```\n\nEncrypts and saves to:\n`persistence/state.json`"
+    },
+    {
+      "id": "state-restore",
+      "type": "text",
+      "x": 100,
+      "y": 1230,
+      "width": 200,
+      "height": 100,
+      "color": "6",
+      "text": "# 🔄 Restore State\n\n```typescript\nawait persistence.restoreState();\n```\n\nLoads from file on initialization"
+    },
+    {
+      "id": "consolidate",
+      "type": "text",
+      "x": 400,
+      "y": 420,
+      "width": 200,
+      "height": 100,
+      "color": "4",
+      "text": "# 🔗 Consolidate Memories\n\n```typescript\nawait persistence.consolidateMemory();\n```\n\n- Temporal grouping\n- Semantic clustering\n- Hyperbolic embedding"
+    },
+    {
+      "id": "compress",
+      "type": "text",
+      "x": 400,
+      "y": 570,
+      "width": 200,
+      "height": 80,
+      "color": "4",
+      "text": "# 🗜️ Compress Memories\n\n```typescript\nawait persistence.compressMemory();\n```\n\nReduce storage size"
+    },
+    {
+      "id": "api-server",
+      "type": "text",
+      "x": 700,
+      "y": 100,
+      "width": 250,
+      "height": 220,
+      "color": "1",
+      "text": "# 🌐 HTTP API Server\n\n**Port:** 3000\n\n**Endpoints:**\n- `/health` - Health check\n- `/status` - System status\n- `/api/identities` - CRUD\n- `/api/memories` - Memory ops\n- `/api/learn` - Learning\n- `/api/checkpoints` - Checkpoints\n- `/api/state` - State mgmt"
+    },
+    {
+      "id": "api-identity",
+      "type": "text",
+      "x": 700,
+      "y": 380,
+      "width": 200,
+      "height": 140,
+      "color": "3",
+      "text": "# 📡 Identity API\n\n**GET** `/api/identities`\nList all identities\n\n**POST** `/api/identities`\nCreate identity\n\n**GET** `/api/identities/:id`\nGet identity\n\n**PUT** `/api/identities/:id`\nUpdate identity\n\n**DELETE** `/api/identities/:id`\nDelete identity"
+    },
+    {
+      "id": "api-memory",
+      "type": "text",
+      "x": 700,
+      "y": 570,
+      "width": 200,
+      "height": 140,
+      "color": "4",
+      "text": "# 📡 Memory API\n\n**GET** `/api/memories`\nQuery memories\n\n**POST** `/api/memories`\nStore memory\n\n**POST** `/api/memories/consolidate`\nConsolidate\n\n**POST** `/api/memories/compress`\nCompress"
+    },
+    {
+      "id": "api-learning",
+      "type": "text",
+      "x": 700,
+      "y": 760,
+      "width": 200,
+      "height": 100,
+      "color": "5",
+      "text": "# 📡 Learning API\n\n**POST** `/api/learn`\nLearn concept\n\n**GET** `/api/learn/progress`\nGet progress"
+    },
+    {
+      "id": "api-checkpoints",
+      "type": "text",
+      "x": 700,
+      "y": 910,
+      "width": 200,
+      "height": 120,
+      "color": "6",
+      "text": "# 📡 Checkpoint API\n\n**GET** `/api/checkpoints`\nList checkpoints\n\n**POST** `/api/checkpoints`\nCreate checkpoint\n\n**GET** `/api/checkpoints/last`\nGet last"
+    },
+    {
+      "id": "api-state",
+      "type": "text",
+      "x": 700,
+      "y": 1080,
+      "width": 200,
+      "height": 120,
+      "color": "6",
+      "text": "# 📡 State API\n\n**GET** `/api/state`\nGet state\n\n**POST** `/api/state/save`\nSave state\n\n**POST** `/api/state/restore`\nRestore state"
+    },
+    {
+      "id": "persistence-file",
+      "type": "text",
+      "x": 400,
+      "y": 1080,
+      "width": 200,
+      "height": 120,
+      "color": "6",
+      "text": "# 📁 File Persistence\n\n**Location:**\n`persistence/state.json`\n\n**Format:**\n- Encrypted JSON\n- AES-256\n- Complete state\n\n**Auto-load:**\nOn initialization"
+    },
+    {
+      "id": "security",
+      "type": "text",
+      "x": 400,
+      "y": 250,
+      "width": 200,
+      "height": 120,
+      "color": "2",
+      "text": "# 🔒 Security Layer\n\n- **Encryption**\n  AES-256\n\n- **Authentication**\n  Token-based\n\n- **Authorization**\n  RBAC\n\n- **Privacy**\n  Data protection"
+    }
+  ],
+  "edges": [
+    {
+      "id": "start-to-components",
+      "fromNode": "start",
+      "fromSide": "right",
+      "toNode": "components",
+      "toSide": "left",
+      "color": "1",
+      "label": "initializes"
+    },
+    {
+      "id": "components-to-security",
+      "fromNode": "components",
+      "fromSide": "bottom",
+      "toNode": "security",
+      "toSide": "top",
+      "color": "2"
+    },
+    {
+      "id": "start-to-identity",
+      "fromNode": "start",
+      "fromSide": "bottom",
+      "toNode": "identity-create",
+      "toSide": "top",
+      "color": "3",
+      "label": "1. Create"
+    },
+    {
+      "id": "identity-to-memory",
+      "fromNode": "identity-create",
+      "fromSide": "bottom",
+      "toNode": "memory-store",
+      "toSide": "top",
+      "color": "4",
+      "label": "2. Store"
+    },
+    {
+      "id": "memory-store-to-retrieve",
+      "fromNode": "memory-store",
+      "fromSide": "bottom",
+      "toNode": "memory-retrieve",
+      "toSide": "top",
+      "color": "4",
+      "label": "3. Retrieve"
+    },
+    {
+      "id": "memory-to-consolidate",
+      "fromNode": "memory-store",
+      "fromSide": "right",
+      "toNode": "consolidate",
+      "toSide": "left",
+      "color": "4",
+      "label": "periodic"
+    },
+    {
+      "id": "consolidate-to-compress",
+      "fromNode": "consolidate",
+      "fromSide": "bottom",
+      "toNode": "compress",
+      "toSide": "top",
+      "color": "4"
+    },
+    {
+      "id": "memory-to-learning",
+      "fromNode": "memory-retrieve",
+      "fromSide": "bottom",
+      "toNode": "learning",
+      "toSide": "top",
+      "color": "5",
+      "label": "4. Learn"
+    },
+    {
+      "id": "learning-to-checkpoint",
+      "fromNode": "learning",
+      "fromSide": "bottom",
+      "toNode": "checkpoint",
+      "toSide": "top",
+      "color": "6",
+      "label": "5. Checkpoint"
+    },
+    {
+      "id": "checkpoint-to-save",
+      "fromNode": "checkpoint",
+      "fromSide": "bottom",
+      "toNode": "state-save",
+      "toSide": "top",
+      "color": "6",
+      "label": "6. Save"
+    },
+    {
+      "id": "save-to-file",
+      "fromNode": "state-save",
+      "fromSide": "right",
+      "toNode": "persistence-file",
+      "toSide": "left",
+      "color": "6"
+    },
+    {
+      "id": "file-to-restore",
+      "fromNode": "persistence-file",
+      "fromSide": "bottom",
+      "toNode": "state-restore",
+      "toSide": "top",
+      "color": "6",
+      "label": "on init"
+    },
+    {
+      "id": "restore-to-start",
+      "fromNode": "state-restore",
+      "fromSide": "left",
+      "toNode": "start",
+      "toSide": "left",
+      "color": "6",
+      "label": "restore"
+    },
+    {
+      "id": "components-to-api",
+      "fromNode": "components",
+      "fromSide": "right",
+      "toNode": "api-server",
+      "toSide": "left",
+      "color": "1",
+      "label": "exposes"
+    },
+    {
+      "id": "api-to-identity",
+      "fromNode": "api-server",
+      "fromSide": "bottom",
+      "toNode": "api-identity",
+      "toSide": "top",
+      "color": "3"
+    },
+    {
+      "id": "identity-create-to-api",
+      "fromNode": "identity-create",
+      "fromSide": "right",
+      "toNode": "api-identity",
+      "toSide": "left",
+      "color": "3",
+      "label": "via API"
+    },
+    {
+      "id": "api-to-memory",
+      "fromNode": "api-server",
+      "fromSide": "bottom",
+      "toNode": "api-memory",
+      "toSide": "top",
+      "color": "4"
+    },
+    {
+      "id": "memory-store-to-api",
+      "fromNode": "memory-store",
+      "fromSide": "right",
+      "toNode": "api-memory",
+      "toSide": "left",
+      "color": "4",
+      "label": "via API"
+    },
+    {
+      "id": "api-to-learning",
+      "fromNode": "api-server",
+      "fromSide": "bottom",
+      "toNode": "api-learning",
+      "toSide": "top",
+      "color": "5"
+    },
+    {
+      "id": "learning-to-api",
+      "fromNode": "learning",
+      "fromSide": "right",
+      "toNode": "api-learning",
+      "toSide": "left",
+      "color": "5",
+      "label": "via API"
+    },
+    {
+      "id": "api-to-checkpoints",
+      "fromNode": "api-server",
+      "fromSide": "bottom",
+      "toNode": "api-checkpoints",
+      "toSide": "top",
+      "color": "6"
+    },
+    {
+      "id": "checkpoint-to-api",
+      "fromNode": "checkpoint",
+      "fromSide": "right",
+      "toNode": "api-checkpoints",
+      "toSide": "left",
+      "color": "6",
+      "label": "via API"
+    },
+    {
+      "id": "api-to-state",
+      "fromNode": "api-server",
+      "fromSide": "bottom",
+      "toNode": "api-state",
+      "toSide": "top",
+      "color": "6"
+    },
+    {
+      "id": "state-save-to-api",
+      "fromNode": "state-save",
+      "fromSide": "right",
+      "toNode": "api-state",
+      "toSide": "left",
+      "color": "6",
+      "label": "via API"
+    }
+  ]
+}
